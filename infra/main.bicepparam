@@ -21,3 +21,4 @@ param logAnalyticsWorkspaceName = readEnvironmentVariable('AZURE_LOG_ANALYTICS_W
 param useContainerRegistry = bool(readEnvironmentVariable('USE_CONTAINER_REGISTRY', 'true'))
 param useApplicationInsights = bool(readEnvironmentVariable('USE_APPLICATION_INSIGHTS', 'true'))
 param useSearch = bool(readEnvironmentVariable('USE_SEARCH_SERVICE', 'true'))
+param createRoleForUser = bool(readEnvironmentVariable('CREATE_ROLE_FOR_USER', 'true'))

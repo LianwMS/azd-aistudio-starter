@@ -43,6 +43,7 @@ param endpointServiceName string = 'chat'
 param useContainerRegistry bool = true
 param useApplicationInsights bool = true
 param useSearch bool = true
+param createRoleForUser bool = true
 
 var abbrs = loadJsonContent('./abbreviations.json')
 var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
@@ -102,7 +103,7 @@ module machineLearningEndpoint './core/host/ml-online-endpoint.bicep' = {
 }
 
 module userAcrRolePush 'core/security/role.bicep' =
-  if (!empty(principalId)) {
+  if (!empty(principalId) && createRoleForUser) {
     name: 'user-acr-role-push'
     scope: rg
     params: {
@@ -113,7 +114,7 @@ module userAcrRolePush 'core/security/role.bicep' =
   }
 
 module userAcrRolePull 'core/security/role.bicep' =
-  if (!empty(principalId)) {
+  if (!empty(principalId) && createRoleForUser) {
     name: 'user-acr-role-pull'
     scope: rg
     params: {
@@ -124,7 +125,7 @@ module userAcrRolePull 'core/security/role.bicep' =
   }
 
 module userRoleDataScientist 'core/security/role.bicep' =
-  if (!empty(principalId)) {
+  if (!empty(principalId) && createRoleForUser) {
     name: 'user-role-data-scientist'
     scope: rg
     params: {
@@ -135,7 +136,7 @@ module userRoleDataScientist 'core/security/role.bicep' =
   }
 
 module userRoleSecretsReader 'core/security/role.bicep' =
-  if (!empty(principalId)) {
+  if (!empty(principalId) && createRoleForUser) {
     name: 'user-role-secrets-reader'
     scope: rg
     params: {
